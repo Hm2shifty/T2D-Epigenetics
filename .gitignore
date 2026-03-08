@@ -1,0 +1,19 @@
+# Python environment
+venv/
+.env
+__pycache__/
+*.py[cod]
+
+# DATA - CRITICAL: Do not upload the large datasets
+data/*.csv
+data/*.pkl
+data/*.gz
+data/*.tsv
+data/*.zip
+
+# Notebooks and temporary files
+.ipynb_checkpoints
+.DS_Store
+
+# Large log files
+*.log
