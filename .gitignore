@@ -5,6 +5,8 @@ __pycache__/
 *.py[cod]
 
 # DATA - CRITICAL: Do not upload the large datasets
+data/GSE114763_beta_values.csv
+data/GSE114763_sample_metadata.csv
 data/*.csv
 data/*.pkl
 data/*.gz

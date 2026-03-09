@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import os
 
+
+'''
 def run_test():
     file_path = '../data/final_dataset_for_ml.pkl'
     
@@ -54,3 +56,23 @@ def run_test():
 
 if __name__ == "__main__":
     run_test()
+'''
+
+import pandas as pd
+
+# Load your top 50 panel from earlier
+top_50_df = pd.read_csv('../data/top_50_diagnostic_panel.csv')
+gold_list = top_50_df.iloc[:, 0].tolist() # Assumes CpG IDs are in the first column
+
+# Load the twin data headers (the 27k sites)
+twin_data_cols = pd.read_csv('../data/beta_values_twins.csv', nrows=0).columns.tolist()
+
+# Check overlap
+overlap = [site for site in gold_list if site in twin_data_cols]
+missing = [site for site in gold_list if site not in twin_data_cols]
+
+print(f"--- GOLD LIST SURVIVAL REPORT ---")
+print(f"Total Gold List Sites: {len(gold_list)}")
+print(f"Present in Twin Data: {len(overlap)}")
+print(f"Missing (Not on 27k Chip): {len(missing)}")
+print(f"\nAvailable Sites: {overlap[:10]}...")

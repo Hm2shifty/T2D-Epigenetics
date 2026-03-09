@@ -1,6 +1,12 @@
 # Epigenetics Notebook
-## March 7 2026
+Datasets:
+GSE272137 --> Main data site --> baraitic surgery --> n = 52, 850k sites
+GSE38291 --> Twins Dataset - 27k sites --> n = 11 x 2 (Twins) 
+GSE114763 --> Excersise Dataset 
 
+
+
+## March 7 2026
 
 ### Phase 1: Foundation
 - Set up conda environment `epi`
@@ -19,4 +25,7 @@
 - None Today
 
 ## March 8 2026
+
+### Issues hit:
+AUC went down --> meaning the orignal 52 set sample was being mmorized, running multi test code
 
