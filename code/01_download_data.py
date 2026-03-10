@@ -39,18 +39,36 @@ try:
     print("\nNext Step: We need to extract this and check if your Top 50 sites are inside.")
 except Exception as e:
     print(f"Download failed. Error: {e}")
-    '''
 
 import urllib.request
 import os
 
 # GSE114763 - Muscle Memory EPIC Dataset
-url_mem = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE114nnn/GSE114763/matrix/GSE114763_series_matrix.txt.gz"
-dest_mem = "../data/GSE114763_series_matrix.txt.gz"
+#url_mem = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE114nnn/GSE114763/matrix/GSE114763_series_matrix.txt.gz"
+# dest_mem = "../data/GSE114763_series_matrix.txt.gz"
+
+url_mem = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE270nnn/GSE270223/matrix/GSE270223_series_matrix.txt.gz"
+dest_mem = "../data/GSE270223_series_matrix.txt.gz"
+
+
+print("--- DOWNLOADING MONOCYTE VALIDATION DATA (GSE270223) ---")
+urllib.request.urlretrieve(url_mem, dest_mem)
+print("Download complete!")
+    '''
+import os
+import urllib.request
+
+# The actual verified filename for GSE270223 processed data
+url_data = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE270nnn/GSE270223/suppl/GSE270223_Non-normalized_signal_intensities.txt.gz"
+dest_data = "../data/GSE270223_data.txt.gz"
 
 if not os.path.exists("../data"):
     os.makedirs("../data")
 
-print("--- DOWNLOADING EXERCISE VALIDATION DATA (EPIC) ---")
-urllib.request.urlretrieve(url_mem, dest_mem)
-print("Download complete!")
+print("--- DOWNLOADING MONOCYTE SIGNAL DATA (This may take a while...) ---")
+try:
+    # This file is large, so we use a more robust download helper
+    urllib.request.urlretrieve(url_data, dest_data)
+    print(f"Download complete! File saved as {dest_data}")
+except Exception as e:
+    print(f"Error downloading: {e}")
