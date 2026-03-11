@@ -3,19 +3,17 @@ venv/
 .env
 __pycache__/
 *.py[cod]
+.ipynb_checkpoints
 
-# DATA - CRITICAL: Do not upload the large datasets
-data/GSE114763_beta_values.csv
-data/GSE114763_sample_metadata.csv
-data/*.csv
-data/*.pkl
-data/*.gz
-data/*.tsv
-data/*.zip
-data/*.parquet
+# DATA - CRITICAL: Ignore ALL content in the data directory recursively
+# This protects your 8GB RAM and your GitHub storage
+data/**
+
+# Exceptions: If you want to keep the folder structure in Git but not the data,
+# we allow the .gitkeep files
+!data/**/.gitkeep
 
 # Notebooks and temporary files
-.ipynb_checkpoints
 .DS_Store
 
 # Large log files
