@@ -55,7 +55,7 @@ else:
     # Show a preview of the clean data
     print(metadata_clean.head())
 
-'''
+
 
 import pandas as pd
 import gzip
@@ -112,3 +112,43 @@ def process_geo_matrix(file_path):
 
 if __name__ == "__main__":
     process_geo_matrix(RAW_FILE)
+'''
+
+
+import pandas as pd
+import os
+
+input_file = "../data/GSE270223_betas.txt.gz"
+output_parquet = "../data/GSE270223_full_matrix.parquet"
+
+print("--- FORCING HEADER DETECTION ---")
+
+# 1. Read just the header row
+temp_df = pd.read_csv(input_file, sep='\t', compression='gzip', nrows=0)
+raw_cols = temp_df.columns.tolist()
+
+# Clean those column names (remove quotes/brackets)
+clean_cols = [c.replace('[', '').replace(']', '').replace('"', '').strip() for c in raw_cols]
+print(f"Detected {len(clean_cols)} columns.")
+print(f"First 3 Columns: {clean_cols[:3]}")
+
+# 2. Load the data using these clean names
+print("Loading full 2.2GB file... (this may take 2-3 minutes)")
+df = pd.read_csv(
+    input_file, 
+    sep='\t', 
+    compression='gzip', 
+    names=clean_cols, 
+    header=0,         # This tells pandas to ignore the first row in the file because we provided 'names'
+    low_memory=True
+)
+
+# 3. Set the CpG ID (the first column) as the index
+df.set_index(df.columns[0], inplace=True)
+
+print(f"Matrix shape: {df.shape}")
+
+# 4. Save to Parquet
+df.to_parquet(output_parquet, engine='pyarrow')
+print("-" * 30)
+print(f"SUCCESS: Parquet file saved with {len(df.columns)} columns.")

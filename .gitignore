@@ -12,7 +12,7 @@ data/*.pkl
 data/*.gz
 data/*.tsv
 data/*.zip
-
+data/*.parquet
 
 # Notebooks and temporary files
 .ipynb_checkpoints
